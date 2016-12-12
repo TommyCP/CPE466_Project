@@ -65,10 +65,25 @@ public class BinaryNetwork {
 			
 			// If the network is wrong, teach it.
 			if (error!=0) teachNetwork(error);
-		}
-		
+		}	
 	}
 	
+	// predict takes in a training set and produces a boolean array of classifications.
+	// the input must have the same number of columns as there are neurons in the input layer.
+	public boolean[] predict(double[][] testingSet) {
+		assert (testingSet.length>0);
+		assert (testingSet[0].length == network.get(0).size());
+		
+		boolean[] res = new boolean[testingSet.length];
+		
+		for (int i=0; i<testingSet.length; i++) {
+			res[i] = getResult(testingSet[i]);
+		}
+		
+		return res;
+	}
+	
+	// return the number of layers in the network
 	public int size() {
 		return size;
 	}
