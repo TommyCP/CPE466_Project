@@ -28,8 +28,25 @@ public class Main
       {
          System.out.println(nucleus);
       }
+      
+      double[][] data = getDataArray(nuclei);
+      boolean[] classes = getClasses(nuclei);
+      
+      
    }
 
+   public static double[][] getDataArray(ArrayList<CellNucleus> nuclei) {
+	   double[][] ret = new double[nuclei.size()][30];
+	   for (int i=0; i<ret.length; i++) ret[i] = nuclei.get(i).getFeatureArray();
+	   return ret;
+   }
+   
+   public static boolean[] getClasses(ArrayList<CellNucleus> nuclei) {
+	   boolean[] ret = new boolean[nuclei.size()];
+	   for (int i=0; i<ret.length; i++) ret[i] = nuclei.get(i).isBenign();
+	   return ret;
+   }
+   
    private static ArrayList<CellNucleus> fillMatrix(String fileName)
    {
       File file;

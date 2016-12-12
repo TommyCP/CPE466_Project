@@ -40,6 +40,13 @@ public class CellNucleus
    {
       return features;
    }
+   
+   public double[] getFeatureArray()
+   {
+	   double[] ret = new double[features.size()];
+	   for (int i=0; i<ret.length; i++) ret[i]=features.get(i);
+	   return ret;
+   }
 
    public String toString()
    {
