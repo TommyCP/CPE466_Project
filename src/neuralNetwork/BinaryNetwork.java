@@ -1,13 +1,10 @@
 package neuralNetwork;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 public class BinaryNetwork {
 	
-	private HashMap<Integer, ArrayList<Neuron>> network;
-	private int size;
+	private ArrayList<ArrayList<Neuron>> network;
 	
 	/*
 	 * Constructs a new instance of the network class.
@@ -16,6 +13,7 @@ public class BinaryNetwork {
 	 */
 	public BinaryNetwork (int[] layers) {
 		int size = layers.length;
+		network = new ArrayList<ArrayList<Neuron>>();
 		
 		// Assert the user has input some layers and the last one is of size one.
 		assert (size>0);
@@ -34,7 +32,7 @@ public class BinaryNetwork {
 			}
 			
 			// Adds the layer to the network
-			network.put(i, layer);
+			network.add(layer);
 		}
 	}
 	
@@ -85,7 +83,7 @@ public class BinaryNetwork {
 	
 	// return the number of layers in the network
 	public int size() {
-		return size;
+		return network.size();
 	}
 	
 	// goes through an iteration of the network, producing a boolean classification
@@ -94,7 +92,7 @@ public class BinaryNetwork {
 		
 		double[] out = null;
 		
-		for (int i=0; i<size; i++) {
+		for (int i=0; i<network.size(); i++) {
 			out = new double[network.get(i).size()];
 			
 			// set output of this layer to be the sigmoid score of each neuron
@@ -113,8 +111,8 @@ public class BinaryNetwork {
 	
 	// Tells each of the items in the network to adjust its weights based on error produced
 	private void teachNetwork(int error) {
-		for (Entry<Integer, ArrayList<Neuron>> e : network.entrySet()) {
-			for (Neuron n : e.getValue()) {
+		for (ArrayList<Neuron> list : network) {
+			for (Neuron n : list) {
 				n.teach(error);
 			}
 		}
