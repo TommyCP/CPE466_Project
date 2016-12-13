@@ -41,6 +41,28 @@ public class Main
 	   return ret;
    }
    
+   // Standardizes the data by subtracting the mean of each column from each data point in that column
+   // Then dividing by the mean of that column.
+   public void standardizeData (double[][] data) {
+	   assert (data.length>0);
+	   double[] avgs = new double[data[0].length];
+	   for (int i = 0; i < data.length; i++) {
+		   for (int j = 0; j < data[i].length; j++) {
+			   avgs[j] += data[i][j];
+		   }
+	   }
+	   
+	   for (int i = 0; i < avgs.length; i++) {
+		   avgs[i] = avgs[i]/data.length;
+	   }
+	   
+	   for (int i = 0; i < data.length; i++) {
+		   for (int j = 0; j < data[i].length; j++) {
+			   data[i][j] = (data[i][j]-avgs[j])/avgs[j];
+		   }
+	   }
+   }
+   
    public static boolean[] getClasses(ArrayList<CellNucleus> nuclei) {
 	   boolean[] ret = new boolean[nuclei.size()];
 	   for (int i=0; i<ret.length; i++) ret[i] = nuclei.get(i).isBenign();
